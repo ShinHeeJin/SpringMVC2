@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -18,6 +20,16 @@ import java.util.List;
 public class FormItemController {
 
     private final ItemRepository itemRepository;
+
+    // 모든 컨트롤러에 아래 model 추가된다.
+    @ModelAttribute("regions")
+    public Map<String , String> regions () {
+        Map<String, String> regions = new LinkedHashMap<>(); // 순서 보장하기 위해
+        regions.put("SEOUL", "서울");
+        regions.put("BUSAN", "부산");
+        regions.put("JEJU", "제주");
+        return regions;
+    }
 
     @GetMapping
     public String items(Model model) {
@@ -61,6 +73,8 @@ public class FormItemController {
         itemRepository.update(itemId, item);
         return "redirect:/form/items/{itemId}";
     }
+
+
 
 }
 
