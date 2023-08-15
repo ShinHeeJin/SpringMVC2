@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,15 @@ public class LoginController {
         // 쿠키에 시간정보를 주지 않으면 세션 쿠디 ( 브라우저 종료시 모두 종료 )
         Cookie idCookie = new Cookie("memberId", String.valueOf(loginMember.getId()));
         response.addCookie(idCookie);
+        return "redirect:/";
+    }
+
+    @PostMapping("/logout")
+    public String logout(@CookieValue(name = "memberId") Long memberId, HttpServletResponse response) {
+        Cookie loginCookie = new Cookie("memberId", String.valueOf(memberId));
+        loginCookie.setMaxAge(0);
+        response.addCookie(loginCookie);
+
         return "redirect:/";
     }
 }
