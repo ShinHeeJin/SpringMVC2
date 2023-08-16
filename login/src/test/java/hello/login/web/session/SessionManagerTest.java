@@ -1,13 +1,11 @@
 package hello.login.web.session;
 
 import hello.login.domain.member.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SessionManagerTest {
 
@@ -32,7 +30,7 @@ class SessionManagerTest {
 
         // 세션 만료
 
-        sessionManager.expired(request);
+        sessionManager.expire(request);
         Object expired = sessionManager.getSession(request);
         assertThat(expired).isNull();
     }
