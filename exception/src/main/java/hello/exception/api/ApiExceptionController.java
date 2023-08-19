@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
-
 @Slf4j
 @RestController
 public class ApiExceptionController {
@@ -20,6 +18,9 @@ public class ApiExceptionController {
             throw new RuntimeException("잘못된 아이디 입니다.");
         }
 
+        if (id.equals("bad")) {
+            throw new IllegalArgumentException("잘못된 값 입니다.");
+        }
         return new MemberDTO(id, "hello" + id);
     }
 
